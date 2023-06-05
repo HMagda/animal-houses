@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Feathered Haven",
+      "price": 120,
+      "locationType": "tree",
+      "animalType": "birds"
+    },
+    {
+      "id": 2,
+      "name": "Burrow Bungalow",
+      "price": 200,
+      "locationType": "ground",
+      "animalType": "rabbits"
+    },
+    {
+      "id": 3,
+      "name": "Squirrel's Skyloft",
+      "price": 150,
+      "locationType": "tree",
+      "animalType": "squirrels"
+    },
+    {
+      "id": 4,
+      "name": "Hedgehog Hideaway",
+      "price": 180,
+      "locationType": "ground",
+      "animalType": "hedgehogs"
+    },
+    {
+      "id": 5,
+      "name": "Mouse Manor",
+      "price": 100,
+      "locationType": "ground",
+      "animalType": "mice"
+    },
+    {
+      "id": 6,
+      "name": "Home Sweet Home",
+      "price": 140,
+      "locationType": "tree",
+      "animalType": "bees"
+    }
+  ]
+}
