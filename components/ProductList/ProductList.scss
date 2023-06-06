@@ -1,0 +1,44 @@
+@import '../../styles/variables.scss';
+
+body {
+  background-color: $background-color;
+  font-family: $primary-font;
+  color: $font-color;
+}
+
+$product-table-padding: 1rem;
+$product-table-border: 1px solid #ddd;
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: $product-table-padding;
+    text-align: left;
+    border-bottom: $product-table-border;
+  }
+
+  th {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  svg.svg-inline--fa {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .arrow-up {
+    transform: rotate(-180deg);
+  }
+
+  .arrow-down {
+    transform: rotate(0deg);
+  }
+
+  .arrow-neutral {
+    color: #999999;
+  }
+}
