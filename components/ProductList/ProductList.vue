@@ -7,19 +7,51 @@
         <tr>
           <th @click="sortProducts('name')">
             House Name
-            <font-awesome-icon icon="sort" />
+            <font-awesome-icon
+              :icon="
+                sortKey === 'name'
+                  ? sortOrder === 1
+                    ? 'sort-up'
+                    : 'sort-down'
+                  : 'sort'
+              "
+            />
           </th>
           <th @click="sortProducts('price')">
             Price
-            <font-awesome-icon icon="sort" />
+            <font-awesome-icon
+              :icon="
+                sortKey === 'price'
+                  ? sortOrder === 1
+                    ? 'sort-up'
+                    : 'sort-down'
+                  : 'sort'
+              "
+            />
           </th>
           <th @click="sortProducts('locationType')">
             Location
-            <font-awesome-icon icon="sort" />
+            <font-awesome-icon
+              :icon="
+                sortKey === 'locationType'
+                  ? sortOrder === 1
+                    ? 'sort-up'
+                    : 'sort-down'
+                  : 'sort'
+              "
+            />
           </th>
           <th @click="sortProducts('animalType')">
             Animal
-            <font-awesome-icon icon="sort" />
+            <font-awesome-icon
+              :icon="
+                sortKey === 'animalType'
+                  ? sortOrder === 1
+                    ? 'sort-up'
+                    : 'sort-down'
+                  : 'sort'
+              "
+            />
           </th>
         </tr>
       </thead>
@@ -27,11 +59,17 @@
         <tr v-for="product in filteredProducts" :key="product.id">
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
-          <td @click="filterBy('location', product.locationType)">
-            {{ product.locationType }}
+          <td
+            class="clickable location-value"
+            @click="filterBy('location', product.locationType)"
+          >
+            <span class="table-content">{{ product.locationType }}</span>
           </td>
-          <td @click="filterBy('animal', product.animalType)">
-            {{ product.animalType }}
+          <td
+            class="clickable animal-value"
+            @click="filterBy('animal', product.animalType)"
+          >
+            <span class="table-content">{{ product.animalType }}</span>
           </td>
         </tr>
       </tbody>
