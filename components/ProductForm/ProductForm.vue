@@ -1,45 +1,80 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <input type="text" v-model="name" placeholder="Name" required />
-    <input type="number" v-model="price" placeholder="Price" required />
+  <div class="product-form-wrapper" @click="closeForm">
+    <div class="product-form" @click.stop>
+      <span class="form-close" @click="closeForm">x</span>
+      <h2 class="form-title">Add New Product</h2>
 
-    <div class="dropdown">
-      <div class="dropdown-toggle" @click="toggleLocationDropdown">
-        {{ selectedLocation || 'Select location' }}
-      </div>
-      <div class="dropdown-menu" :style="{ display: showLocationDropdown ? 'block' : 'none' }">
-        <div class="dropdown-item">
-          <input v-model="newLocation" placeholder="Type new location..." />
-          <button @click.prevent.stop="addNewLocation">+</button>
+      <form @submit.prevent="submitForm">
+        House Name
+        <input type="text" v-model="name" placeholder="Name" required />
+
+        Price
+        <input
+          type="number"
+          v-model="price"
+          min="0.01"
+          step="0.01"
+          placeholder="Price"
+          required
+        />
+
+        Location
+        <div class="dropdown">
+          <div class="dropdown-toggle" @click="toggleLocationDropdown">
+            {{ selectedLocation || "Select location" }}
+          </div>
+          <div
+            class="dropdown-menu"
+            :style="{ display: showLocationDropdown ? 'block' : 'none' }"
+          >
+            <div class="dropdown-item">
+              <input v-model="newLocation" placeholder="Type new location..." />
+              <button @click.prevent.stop="addNewLocation">+</button>
+            </div>
+            <div
+              class="dropdown-item"
+              v-for="location in uniqueLocationTypes"
+              :key="location"
+              @click="selectLocation(location)"
+            >
+              {{ location }}
+            </div>
+          </div>
         </div>
-        <div class="dropdown-item" v-for="location in uniqueLocationTypes" :key="location" @click="selectLocation(location)">
-          {{ location }}
+
+        Animal
+        <div class="dropdown">
+          <div class="dropdown-toggle" @click="toggleAnimalDropdown">
+            {{ selectedAnimal || "Select animal" }}
+          </div>
+          <div
+            class="dropdown-menu"
+            :style="{ display: showAnimalDropdown ? 'block' : 'none' }"
+          >
+            <div class="dropdown-item">
+              <input v-model="newAnimal" placeholder="Type new animal..." />
+              <button @click.prevent.stop="addNewAnimal">+</button>
+            </div>
+            <div
+              class="dropdown-item"
+              v-for="animal in uniqueAnimalTypes"
+              :key="animal"
+              @click="selectAnimal(animal)"
+            >
+              {{ animal }}
+            </div>
+          </div>
         </div>
-      </div>
+
+        <button class="btn-submit" type="submit">Add Product</button>
+      </form>
     </div>
-
-    <div class="dropdown">
-      <div class="dropdown-toggle" @click="toggleAnimalDropdown">
-        {{ selectedAnimal || 'Select animal' }}
-      </div>
-      <div class="dropdown-menu" :style="{ display: showAnimalDropdown ? 'block' : 'none' }">
-        <div class="dropdown-item">
-          <input v-model="newAnimal" placeholder="Type new animal..." />
-          <button @click.prevent.stop="addNewAnimal">+</button>
-        </div>
-        <div class="dropdown-item" v-for="animal in uniqueAnimalTypes" :key="animal" @click="selectAnimal(animal)">
-          {{ animal }}
-        </div>
-      </div>
-    </div>
-
-    <button type="submit">Add Product</button>
-  </form>
+  </div>
 </template>
 
 <script>
-import { ref, inject, computed } from 'vue';
-import '../ProductForm/ProductForm.scss';
+import { ref, inject, computed } from "vue";
+import "../ProductForm/ProductForm.scss";
 
 export default {
   setup(_, { emit }) {
@@ -60,24 +95,24 @@ export default {
     const showLocationDropdown = ref(false);
     const showAnimalDropdown = ref(false);
 
-    const selectedLocation = ref('');
-    const selectedAnimal = ref('');
+    const selectedLocation = ref("");
+    const selectedAnimal = ref("");
 
-    const newLocation = ref('');
-    const newAnimal = ref('');
+    const newLocation = ref("");
+    const newAnimal = ref("");
 
     const name = ref("");
     const price = ref(0);
 
     const selectLocation = (location) => {
       selectedLocation.value = location;
-      newLocation.value = '';
+      newLocation.value = "";
       showLocationDropdown.value = false;
     };
 
     const selectAnimal = (animal) => {
       selectedAnimal.value = animal;
-      newAnimal.value = '';
+      newAnimal.value = "";
       showAnimalDropdown.value = false;
     };
 
@@ -105,9 +140,13 @@ export default {
       showLocationDropdown.value = false;
     };
 
+    const closeForm = () => {
+      emit("close-form");
+    };
+
     const submitForm = () => {
       if (!selectedLocation.value || !selectedAnimal.value) {
-        alert('Please select both location and animal');
+        alert("Please select both location and animal");
         return;
       }
 
@@ -119,12 +158,13 @@ export default {
         animalType: selectedAnimal.value,
       };
 
-      emit("new-product", newProduct);
-
       name.value = "";
       price.value = 0;
       selectedLocation.value = "";
       selectedAnimal.value = "";
+
+      emit("new-product", newProduct);
+      closeForm();
     };
 
     return {
@@ -143,10 +183,10 @@ export default {
       toggleLocationDropdown,
       toggleAnimalDropdown,
       submitForm,
+      closeForm,
       name,
-      price
+      price,
     };
   },
 };
 </script>
-

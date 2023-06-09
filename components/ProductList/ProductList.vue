@@ -1,7 +1,23 @@
 <template>
   <div>
-    <product-form @new-product="handleNewProduct"></product-form>
-    <input type="text" v-model="searchText" placeholder="Search products..." />
+    <div class="options-container">
+      <button @click="showForm = !showForm">Add Product</button>
+      <product-form
+        v-if="showForm"
+        @new-product="handleNewProduct"
+        @close-form="closeForm"
+      ></product-form>
+      <div class="search-container">
+        Search:
+        <input
+          type="text"
+          v-model="searchText"
+          placeholder="Search products..."
+        />
+        <button @click="clearFilters">Clear filters</button>
+      </div>
+    </div>
+
     <table class="product-table">
       <thead>
         <tr>
@@ -59,17 +75,19 @@
         <tr v-for="product in filteredProducts" :key="product.id">
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
-          <td
-            class="clickable location-value"
-            @click="filterBy('location', product.locationType)"
-          >
-            <span class="table-content">{{ product.locationType }}</span>
+          <td class="location-value">
+            <span
+              class="clickable table-content"
+              @click="filterBy('location', product.locationType)"
+              >{{ product.locationType }}</span
+            >
           </td>
-          <td
-            class="clickable animal-value"
-            @click="filterBy('animal', product.animalType)"
-          >
-            <span class="table-content">{{ product.animalType }}</span>
+          <td class="animal-value">
+            <span
+              class="clickable table-content"
+              @click="filterBy('animal', product.animalType)"
+              >{{ product.animalType }}</span
+            >
           </td>
         </tr>
       </tbody>
@@ -107,6 +125,7 @@ export default {
     provide("products", products);
 
     const searchText = ref("");
+    const showForm = ref(false);
 
     const sortParams = reactive({
       sortKey: "",
@@ -138,8 +157,16 @@ export default {
 
       if (sortParams.sortKey) {
         sortedProducts.sort((a, b) => {
-          const aValue = a[sortParams.sortKey];
-          const bValue = b[sortParams.sortKey];
+          let aValue = a[sortParams.sortKey];
+          let bValue = b[sortParams.sortKey];
+
+          if (sortParams.sortKey === "price") {
+            aValue = parseFloat(aValue);
+            bValue = parseFloat(bValue);
+          } else {
+            aValue = aValue.toLowerCase();
+            bValue = bValue.toLowerCase();
+          }
 
           if (aValue < bValue) return -sortParams.sortOrder;
           if (aValue > bValue) return sortParams.sortOrder;
@@ -172,6 +199,14 @@ export default {
       }
     };
 
+    const clearFilters = () => {
+      searchText.value = "";
+    };
+
+    const closeForm = () => {
+      showForm.value = false;
+    };
+
     return {
       ...toRefs(sortParams),
       searchText,
@@ -181,6 +216,9 @@ export default {
       showSortDropdown,
       toggleSortDropdown,
       filterBy,
+      clearFilters,
+      closeForm,
+      showForm,
     };
   },
 };

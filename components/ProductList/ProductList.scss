@@ -1,13 +1,61 @@
 @import "../../styles/variables.scss";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: $background-color;
   font-family: $primary-font;
   color: $font-color;
 }
 
-$product-table-padding: 1rem;
-$product-table-border: 1px solid #ddd;
+.options-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+
+    input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      margin: 0.5rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  }
+}
 
 .product-table {
   width: 100%;
@@ -15,9 +63,9 @@ $product-table-border: 1px solid #ddd;
 
   th,
   td {
-    padding: $product-table-padding;
+    padding: 1rem;
     text-align: left;
-    border-bottom: $product-table-border;
+    border-bottom: 1px solid #ddd;
   }
 
   th {
@@ -33,8 +81,8 @@ $product-table-border: 1px solid #ddd;
   .clickable {
     cursor: pointer;
 
-    .table-content {
-      padding: 0.2rem 0.5rem;
+    &.table-content {
+      padding: 0.3rem 0.6rem;
       border: 1px solid #ddd;
       border-radius: 1rem;
       transition: all 0.3s;
@@ -42,20 +90,24 @@ $product-table-border: 1px solid #ddd;
   }
 
   .location-value {
-    color: #007bff;
+    .table-content {
+      color: #ff8300;
 
-    &:hover .table-content {
-      background-color: #007bff;
-      color: white;
+      &:hover {
+        background-color: #ff8300;
+        color: white;
+      }
     }
   }
 
   .animal-value {
-    color: #28a745;
+    .table-content {
+      color: #28a745;
 
-    &:hover .table-content {
-      background-color: #28a745;
-      color: white;
+      &:hover {
+        background-color: #28a745;
+        color: white;
+      }
     }
   }
 }
