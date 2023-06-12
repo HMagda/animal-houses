@@ -29,6 +29,18 @@ body {
     }
   }
 
+  .currency-container {
+    display: flex;
+    align-items: center;
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      margin: 1rem;
+    }
+  }
+
   .search-container {
     display: flex;
     align-items: center;

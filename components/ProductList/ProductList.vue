@@ -7,6 +7,19 @@
         @new-product="handleNewProduct"
         @close-form="closeForm"
       ></product-form>
+      <div class="currency-container">
+        Currency:
+        <select v-model="selectedCurrency">
+          <option disabled value="">Please select a currency</option>
+          <option
+            v-for="(rate, currency) in currencies"
+            :key="currency"
+            :value="currency"
+          >
+            {{ currency }}
+          </option>
+        </select>
+      </div>
       <div class="search-container">
         Search:
         <input
@@ -17,7 +30,6 @@
         <button @click="clearFilters">Clear filters</button>
       </div>
     </div>
-
     <table class="product-table">
       <thead>
         <tr>
@@ -74,7 +86,7 @@
       <tbody>
         <tr v-for="product in filteredProducts" :key="product.id">
           <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
+          <td>{{ convertPrice(product.price) }}</td>
           <td class="location-value">
             <span
               class="clickable table-content"
@@ -103,53 +115,99 @@ import {
   faArrowDown,
   faSort,
 } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faArrowUp, faArrowDown, faSort);
-
-import { ref, provide, reactive, computed, toRefs } from "vue";
+import { ref, provide, reactive, computed, toRefs, watch } from "vue";
 import axios from "axios";
-
 import ProductForm from "../ProductForm/ProductForm.vue";
-
 import "./ProductList.scss";
 
 library.add(faArrowUp, faArrowDown, faSort);
+
+const BASE_API_URL = "http://localhost:5000";
+const EXCHANGE_RATE_API = "https://api.exchangerate-api.com/v4/latest";
+
+const currencyFormats = {
+  PLN: { symbol: "zł", position: "after", separator: "," },
+  USD: { symbol: "$", position: "before", separator: "." },
+  EUR: { symbol: "€", position: "after", separator: "." },
+};
 
 export default {
   components: {
     ProductForm,
     FontAwesomeIcon,
   },
+
   setup() {
     const products = ref([]);
     provide("products", products);
 
     const searchText = ref("");
     const showForm = ref(false);
+    const selectedCurrency = ref("PLN");
+    const isLoading = ref(false);
+    const currencies = ref({ PLN: 1, USD: null, EUR: null });
 
-    const sortParams = reactive({
-      sortKey: "",
-      sortOrder: 1,
-    });
+    const sortParams = reactive({ sortKey: "", sortOrder: 1 });
 
     const fetchProducts = async () => {
-      const response = await axios.get("http://localhost:5000/products");
-      products.value = response.data;
+      const { data } = await axios.get(`${BASE_API_URL}/products`);
+      products.value = data;
     };
-
-    fetchProducts();
 
     const handleNewProduct = async (product) => {
-      const response = await axios.post(
-        "http://localhost:5000/products",
-        product
-      );
-      products.value.push(response.data);
+      const { data } = await axios.post(`${BASE_API_URL}/products`, product);
+      products.value.push(data);
     };
 
-    const showSortDropdown = ref(false);
-    const toggleSortDropdown = () => {
-      showSortDropdown.value = !showSortDropdown.value;
+    const filterBy = (type, value) => {
+      searchText.value = value;
+    };
+
+    const clearFilters = () => {
+      searchText.value = "";
+    };
+
+    const closeForm = () => {
+      showForm.value = false;
+    };
+
+    const fetchExchangeRates = async () => {
+      isLoading.value = true;
+      try {
+        const { data } = await axios.get(`${EXCHANGE_RATE_API}/PLN`);
+        currencies.value = {
+          ...currencies.value,
+          USD: data.rates.USD,
+          EUR: data.rates.EUR,
+        };
+      } catch (error) {
+        console.log(error);
+      }
+      isLoading.value = false;
+    };
+
+    const convertPrice = (price) => {
+      const currencyValue =
+        price * (currencies.value[selectedCurrency.value] || 1);
+      const formattedValue = new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: false,
+      }).format(currencyValue);
+
+      const { symbol, separator } = currencyFormats[selectedCurrency.value];
+      return symbol === "zł"
+        ? `${formattedValue.replace(".", separator)} ${symbol}`
+        : `${symbol}${formattedValue}`;
+    };
+
+    const sortProducts = (key) => {
+      if (sortParams.sortKey === key) {
+        sortParams.sortOrder *= -1;
+      } else {
+        sortParams.sortKey = key;
+        sortParams.sortOrder = 1;
+      }
     };
 
     const filteredProducts = computed(() => {
@@ -182,43 +240,31 @@ export default {
       });
     });
 
-    const sortProducts = (key) => {
-      if (sortParams.sortKey === key) {
-        sortParams.sortOrder *= -1;
-      } else {
-        sortParams.sortKey = key;
-        sortParams.sortOrder = 1;
-      }
-    };
+    watch(
+      selectedCurrency,
+      () => {
+        if (selectedCurrency.value !== "PLN") fetchExchangeRates();
+      },
+      { immediate: true }
+    );
 
-    const filterBy = (type, value) => {
-      if (type === "animal") {
-        searchText.value = value;
-      } else if (type === "location") {
-        searchText.value = value;
-      }
-    };
-
-    const clearFilters = () => {
-      searchText.value = "";
-    };
-
-    const closeForm = () => {
-      showForm.value = false;
-    };
+    fetchProducts();
 
     return {
       ...toRefs(sortParams),
       searchText,
+      products,
+      currencies,
       handleNewProduct,
       filteredProducts,
       sortProducts,
-      showSortDropdown,
-      toggleSortDropdown,
       filterBy,
       clearFilters,
       closeForm,
       showForm,
+      selectedCurrency,
+      isLoading,
+      convertPrice,
     };
   },
 };

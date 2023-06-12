@@ -8,7 +8,7 @@
         House Name
         <input type="text" v-model="name" placeholder="Name" required />
 
-        Price
+        Price (PLN)
         <input
           type="number"
           v-model="price"
