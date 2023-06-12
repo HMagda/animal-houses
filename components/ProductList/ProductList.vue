@@ -84,7 +84,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in filteredProducts" :key="product.id">
+        <tr v-for="product in paginatedProducts" :key="product.id">
           <td>{{ product.name }}</td>
           <td>{{ convertPrice(product.price) }}</td>
           <td class="location-value">
@@ -104,6 +104,25 @@
         </tr>
       </tbody>
     </table>
+    <div class="pagination-container">
+      <button
+        class="pagination-btn"
+        @click="prevPage"
+        :disabled="currentPage === 1"
+      >
+        Prev
+      </button>
+      <span class="pagination-info"
+        >Page {{ currentPage }} of {{ totalPages }}</span
+      >
+      <button
+        class="pagination-btn"
+        @click="nextPage"
+        :disabled="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
   </div>
 </template>
 
@@ -210,6 +229,25 @@ export default {
       }
     };
 
+    const pageSize = ref(10);
+    const currentPage = ref(1);
+
+    const totalPages = computed(() => {
+      return Math.ceil(filteredProducts.value.length / pageSize.value);
+    });
+
+    const prevPage = () => {
+      if (currentPage.value > 1) currentPage.value--;
+    };
+
+    const nextPage = () => {
+      if (
+        currentPage.value < totalPages.value &&
+        paginatedProducts.value.length > 0
+      ) {
+        currentPage.value++;
+      }
+    };
     const filteredProducts = computed(() => {
       let sortedProducts = [...products.value];
 
@@ -232,12 +270,28 @@ export default {
         });
       }
 
-      return sortedProducts.filter((product) => {
-        return Object.values(product)
-          .join(" ")
-          .toLowerCase()
-          .includes(searchText.value.toLowerCase());
+      let filtered = sortedProducts.filter((product) => {
+        const searchKeywords = searchText.value.toLowerCase().split(" ");
+        const productKeywords = [
+          product.name.toLowerCase(),
+          product.locationType.toLowerCase(),
+          product.animalType.toLowerCase(),
+        ];
+
+        return searchKeywords.some((keyword) =>
+          productKeywords.some((productKeyword) =>
+            productKeyword.includes(keyword)
+          )
+        );
       });
+
+      return filtered;
+    });
+
+    const paginatedProducts = computed(() => {
+      const start = (currentPage.value - 1) * pageSize.value;
+      const end = start + pageSize.value;
+      return filteredProducts.value.slice(start, end);
     });
 
     watch(
@@ -248,6 +302,13 @@ export default {
       { immediate: true }
     );
 
+    watch(searchText, () => {
+      currentPage.value = 1;
+      if (selectedCurrency.value !== "PLN") {
+        fetchExchangeRates();
+      }
+    });
+
     fetchProducts();
 
     return {
@@ -256,7 +317,7 @@ export default {
       products,
       currencies,
       handleNewProduct,
-      filteredProducts,
+      paginatedProducts,
       sortProducts,
       filterBy,
       clearFilters,
@@ -265,6 +326,11 @@ export default {
       selectedCurrency,
       isLoading,
       convertPrice,
+      pageSize,
+      currentPage,
+      totalPages,
+      prevPage,
+      nextPage,
     };
   },
 };

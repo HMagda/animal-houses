@@ -41,6 +41,314 @@
       "price": 140,
       "locationType": "tree",
       "animalType": "bees"
+    },
+    {
+      "id": 7,
+      "name": "Bunny's Bunker",
+      "price": 165,
+      "locationType": "ground",
+      "animalType": "rabbits"
+    },
+    {
+      "id": 8,
+      "name": "Foxhole Fortress",
+      "price": 205,
+      "locationType": "ground",
+      "animalType": "foxes"
+    },
+    {
+      "id": 9,
+      "name": "Otter's Oasis",
+      "price": 155,
+      "locationType": "water",
+      "animalType": "otters"
+    },
+    {
+      "id": 10,
+      "name": "Badger's Burrow",
+      "price": 165,
+      "locationType": "ground",
+      "animalType": "badgers"
+    },
+    {
+      "id": 11,
+      "name": "Butterfly Boudoir",
+      "price": 95,
+      "locationType": "tree",
+      "animalType": "butterflies"
+    },
+    {
+      "id": 12,
+      "name": "Frog's Flat",
+      "price": 110,
+      "locationType": "water",
+      "animalType": "frogs"
+    },
+    {
+      "id": 13,
+      "name": "Duck's Den",
+      "price": 130,
+      "locationType": "water",
+      "animalType": "ducks"
+    },
+    {
+      "id": 14,
+      "name": "Beaver's Bungalow",
+      "price": 175,
+      "locationType": "water",
+      "animalType": "beavers"
+    },
+    {
+      "id": 15,
+      "name": "Raccoon's Refuge",
+      "price": 185,
+      "locationType": "tree",
+      "animalType": "raccoons"
+    },
+    {
+      "id": 16,
+      "name": "Owl's Outlook",
+      "price": 150,
+      "locationType": "tree",
+      "animalType": "owls"
+    },
+    {
+      "id": 17,
+      "name": "Deer's Dwelling",
+      "price": 220,
+      "locationType": "ground",
+      "animalType": "deer"
+    },
+    {
+      "id": 18,
+      "name": "Hare's Hideout",
+      "price": 140,
+      "locationType": "ground",
+      "animalType": "hares"
+    },
+    {
+      "id": 19,
+      "name": "Mole's Mound",
+      "price": 190,
+      "locationType": "ground",
+      "animalType": "moles"
+    },
+    {
+      "id": 20,
+      "name": "Porcupine's Pad",
+      "price": 200,
+      "locationType": "ground",
+      "animalType": "porcupines"
+    },
+    {
+      "id": 21,
+      "name": "Snail's Shelter",
+      "price": 70,
+      "locationType": "ground",
+      "animalType": "snails"
+    },
+    {
+      "id": 22,
+      "name": "Ant's Apartment",
+      "price": 80,
+      "locationType": "ground",
+      "animalType": "ants"
+    },
+    {
+      "id": 23,
+      "name": "Crab's Condo",
+      "price": 140,
+      "locationType": "water",
+      "animalType": "crabs"
+    },
+    {
+      "id": 24,
+      "name": "Coyote's Cabin",
+      "price": 220,
+      "locationType": "ground",
+      "animalType": "coyotes"
+    },
+    {
+      "id": 25,
+      "name": "Bat's Belfry",
+      "price": 160,
+      "locationType": "cave",
+      "animalType": "bats"
+    },
+    {
+      "id": 26,
+      "name": "Spider's Spin",
+      "price": 90,
+      "locationType": "tree",
+      "animalType": "spiders"
+    },
+    {
+      "id": 27,
+      "name": "Weasel's Warren",
+      "price": 210,
+      "locationType": "ground",
+      "animalType": "weasels"
+    },
+    {
+      "id": 28,
+      "name": "Possum's Palace",
+      "price": 190,
+      "locationType": "tree",
+      "animalType": "possums"
+    },
+    {
+      "id": 29,
+      "name": "Skunk's Suite",
+      "price": 200,
+      "locationType": "ground",
+      "animalType": "skunks"
+    },
+    {
+      "id": 30,
+      "name": "Turtle's Tower",
+      "price": 170,
+      "locationType": "water",
+      "animalType": "turtles"
+    },
+    {
+      "id": 31,
+      "name": "Caterpillar's Cottage",
+      "price": 90,
+      "locationType": "tree",
+      "animalType": "caterpillars"
+    },
+    {
+      "id": 32,
+      "name": "Fish's Fort",
+      "price": 130,
+      "locationType": "water",
+      "animalType": "fish"
+    },
+    {
+      "id": 33,
+      "name": "Salamander's Sanctuary",
+      "price": 150,
+      "locationType": "water",
+      "animalType": "salamanders"
+    },
+    {
+      "id": 34,
+      "name": "Falcon's Fortress",
+      "price": 230,
+      "locationType": "tree",
+      "animalType": "falcons"
+    },
+    {
+      "id": 35,
+      "name": "Lizard's Lodge",
+      "price": 200,
+      "locationType": "ground",
+      "animalType": "lizards"
+    },
+    {
+      "id": 36,
+      "name": "Swan's Sanctuary",
+      "price": 220,
+      "locationType": "water",
+      "animalType": "swans"
+    },
+    {
+      "id": 37,
+      "name": "Dove's Den",
+      "price": 160,
+      "locationType": "tree",
+      "animalType": "doves"
+    },
+    {
+      "id": 38,
+      "name": "Heron's Hideaway",
+      "price": 210,
+      "locationType": "water",
+      "animalType": "herons"
+    },
+    {
+      "id": 39,
+      "name": "Ferret's Flat",
+      "price": 190,
+      "locationType": "ground",
+      "animalType": "ferrets"
+    },
+    {
+      "id": 40,
+      "name": "Chipmunk's Chalet",
+      "price": 170,
+      "locationType": "ground",
+      "animalType": "chipmunks"
+    },
+    {
+      "id": 41,
+      "name": "Toad's Tower",
+      "price": 140,
+      "locationType": "water",
+      "animalType": "toads"
+    },
+    {
+      "id": 42,
+      "name": "Eagle's Eyrie",
+      "price": 250,
+      "locationType": "tree",
+      "animalType": "eagles"
+    },
+    {
+      "id": 43,
+      "name": "Lynx's Lair",
+      "price": 230,
+      "locationType": "ground",
+      "animalType": "lynxes"
+    },
+    {
+      "id": 44,
+      "name": "Wasp's Workshop",
+      "price": 120,
+      "locationType": "tree",
+      "animalType": "wasps"
+    },
+    {
+      "id": 45,
+      "name": "Pheasant's Penthouse",
+      "price": 240,
+      "locationType": "tree",
+      "animalType": "pheasants"
+    },
+    {
+      "id": 46,
+      "name": "Platypus's Place",
+      "price": 210,
+      "locationType": "water",
+      "animalType": "platypuses"
+    },
+    {
+      "id": 47,
+      "name": "Weaverbird's Workshop",
+      "price": 130,
+      "locationType": "tree",
+      "animalType": "weaverbirds"
+    },
+    {
+      "id": 48,
+      "name": "Stork's Studio",
+      "price": 200,
+      "locationType": "water",
+      "animalType": "storks"
+    },
+    {
+      "id": 49,
+      "name": "Penguin's Palace",
+      "price": 240,
+      "locationType": "water",
+      "animalType": "penguins"
+    },
+    {
+      "id": 50,
+      "name": "Koala's Kabin",
+      "price": 220,
+      "locationType": "tree",
+      "animalType": "koalas"
     }
   ]
 }
