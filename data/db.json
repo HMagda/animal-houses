@@ -225,13 +225,6 @@
       "animalType": "wasps"
     },
     {
-      "id": 45,
-      "name": "Pheasant's Penthouse",
-      "price": 240,
-      "locationType": "tree",
-      "animalType": "pheasants"
-    },
-    {
       "id": 47,
       "name": "Weaverbird's Workshop",
       "price": 130,
