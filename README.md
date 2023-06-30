@@ -12,6 +12,7 @@
 ## Technologies Used
 
 - Vue.js: JavaScript framework for building user interfaces.
+- Nuxt.js
 - Axios: Promise-based HTTP client for making API requests.
 - Font Awesome: Icon library for adding icons to the UI.
 - SCSS: Preprocessor for writing CSS with variables and nesting.
